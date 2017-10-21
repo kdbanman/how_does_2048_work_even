@@ -131,7 +131,7 @@ void draw() {
   
   for (int row = 0; row < gridSize; row++) {
     for (int col = 0; col < gridSize; col++) {
-      fill(55, 98, 25);
+      setFillForValue(grid[row][col]);
       int cellX = effectiveSize() * col + cellPadding;
       int cellY = effectiveSize() * row + cellPadding;
       // x y w h r
@@ -142,6 +142,26 @@ void draw() {
       fill(255, 255, 255);
       text("" + grid[row][col], cellX, cellY, cellSize, cellSize);
     }
+  }
+}
+
+void setFillForValue(int value) {
+  switch (value) {
+    case 0:
+      fill(20, 20, 20);
+      break;
+    
+    case 2:
+      fill(55, 98, 25);
+      break;
+    
+    case 4:
+      fill(145, 18, 25);
+      break;
+    
+    default:
+      fill(255, 105, 180);
+      break;
   }
 }
 
