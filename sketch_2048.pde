@@ -26,6 +26,24 @@ void seedGrid() {
 }
 
 void collapseGrid(Direction moveDirection) {
+  /*
+  For left to right moveDirection (Direction.RIGHT), we need:
+  [0, 0, 0, 0] -> [0, 0, 0, 0]
+  [0, 0, 0, 2] -> [0, 0, 0, 2]
+  [0, 0, 2, 0] -> [0, 0, 0, 2]
+  [0, 0, 2, 2] -> [0, 0, 0, 4]
+  [2, 2, 2, 2] -> [0, 0, 4, 4]
+  [4, 4, 2, 2] -> [0, 0, 8, 4]
+  [0, 2, 2, 2] -> [0, 0, 2, 4]
+  [2, 0, 2, 2] -> [0, 0, 2, 4]
+  [2, 2, 0, 2] -> [0, 0, 2, 4]
+  [2, 2, 2, 0] -> [0, 0, 2, 4]
+  
+  General:
+  - Drop empties.
+  - From target to source combine adjacent pairs.
+  - Place new list from target to source, padded with empties on source side.
+  */
   return;
 }
 
@@ -126,6 +144,8 @@ void draw() {
   
   for (int row = 0; row < gridSize; row++) {
     for (int col = 0; col < gridSize; col++) {
+      // DESIGN: cells should own their own shape, color, text, other view magic
+      
       setFillForValue(grid[row][col]);
       int cellX = effectiveSize() * col + cellPadding;
       int cellY = effectiveSize() * row + cellPadding;
