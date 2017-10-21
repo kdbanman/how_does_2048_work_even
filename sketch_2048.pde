@@ -31,33 +31,28 @@ void collapseGrid(Direction moveDirection) {
 
 ArrayList<Integer> getFreeCellIndices(Direction wallSide, int layer) {
   ArrayList<Integer> freeCellIndices = new ArrayList<Integer>();
-  
-  switch (wallSide) {
-    case LEFT:
-      //int row = indexToFill;
-      //int col = layer;
-      
-      for (int idx = 0; idx < gridSize; idx++) {
-        if (grid[idx][layer] == 0) {
-          freeCellIndices.add(idx);
-        }
-      }
-      break;
-      
-    case RIGHT:
-      //int row = indexToFill;
-      //int col = gridSize - layer - 1;
-      break;
-      
-    case DOWN:
-      //int row = gridSize - layer - 1;
-      //int col = indexToFill;
-      break;
-      
-    case UP:
-      //int row = layer;
-      //int col = indexToFill;
-      break;
+  for (int idx = 0; idx < gridSize; idx++) {
+    int gridValue = -1;
+    switch (wallSide) {
+      case LEFT:
+        gridValue = grid[idx][layer];
+        break;
+        
+      case RIGHT:
+        gridValue = grid[idx][gridSize - layer - 1];
+        break;
+        
+      case DOWN:
+        gridValue = grid[gridSize - layer - 1][idx];
+        break;
+        
+      case UP:
+        gridValue = grid[layer][idx];
+        break;
+    }
+    if (gridValue == 0) {
+      freeCellIndices.add(idx);
+    }
   }
   
   return freeCellIndices;
