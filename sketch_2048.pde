@@ -241,10 +241,12 @@ void draw() {
       // x y w h r
       rect(cellX, cellY, cellSize, cellSize, cellSize / 10);
       
-      textAlign(CENTER, CENTER);
-      textSize(32); 
-      fill(255, 255, 255);
-      text("" + grid[row][col], cellX, cellY, cellSize, cellSize);
+      if (grid[row][col] != 0) {
+        textAlign(CENTER, CENTER);
+        textSize(32);
+        fill(255, 255, 255);
+        text("" + grid[row][col], cellX, cellY, cellSize, cellSize);
+      }
     }
   }
 }
@@ -361,6 +363,7 @@ void keyPressed() {
   boolean tilePlaced = spawnRandomTile(getOppositeDirection(moveDirection));
   
   if (!tilePlaced){
+    // TODO This isn't actually the lose condition.
     println("Lose.");
   }
 }
