@@ -19,10 +19,10 @@ You'll need Java 7.
 
 It looks like this:
 
-![starting state](assets/start_state.png)
-
-![played state](assets/played_state.png)
+![starting state](assets/start_state.png) ![played state](assets/played_state.png)
 
 And futzing with some magic numbers in the code can make it playable on a much bigger grid:
 
 ![big grid](assets/bigger.gif)
+
+(^That's not in the downloadable executables, sorry. Create a GitHub Issue if you want that.)
