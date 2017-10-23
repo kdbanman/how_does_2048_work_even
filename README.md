@@ -1,6 +1,6 @@
 # how does 2048 work even?
 
-I had a spare few hours and wanted to know how [2048](https://gabrielecirulli.github.io/2048/) worked, so I built it.  (Badly.)
+I wanted to know how [2048](https://gabrielecirulli.github.io/2048/) worked, so I built it.  Badly.
 
 I built it in [Processing](https://processing.org/) because it's easy-peasy to do small things quickly.
 
