@@ -20,6 +20,8 @@ void setup() {
 void draw() {
   clearScreen();
   
+  boolean gameLost = gameLost();
+  
   for (int row = 0; row < gridSize; row++) {
     for (int col = 0; col < gridSize; col++) {
       // DESIGN: cells should own their own shape, color, text, other view magic
@@ -31,10 +33,11 @@ void draw() {
       rect(cellX, cellY, cellSize, cellSize, cellSize / 10);
       
       if (grid.getGridValue(row, col) != 0) {
+        String boxText = gameLost ? ":(" : "" + grid.getGridValue(row, col);
         textAlign(CENTER, CENTER);
         textSize(32);
         fill(255, 255, 255);
-        text("" + grid.getGridValue(row, col), cellX, cellY, cellSize, cellSize);
+        text(boxText, cellX, cellY, cellSize, cellSize);
       }
     }
   }
@@ -47,11 +50,6 @@ void keyPressed() {
   boolean tilePlaced = false;
   if (gridCollapsed) {
     tilePlaced = grid.spawnRandomTile(getOppositeDirection(moveDirection));
-  }
-  
-  if (gameLost()) {
-    // TODO render lose condition.
-    println("Lost");
   }
 }
 
