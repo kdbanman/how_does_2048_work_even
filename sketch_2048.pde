@@ -49,8 +49,6 @@ ArrayList<Integer> collapseLayers(ArrayList<Integer> layerSlice) {
     collapsedSlice.remove(collapsedSlice.indexOf(0));
   }
   
-  println(collapsedSlice);
-  
   if (collapsedSlice.size() > 1) {
     for (int layer = collapsedSlice.size() - 1; layer >0; layer--) {
       int value = collapsedSlice.get(layer);
@@ -100,7 +98,6 @@ ArrayList<Integer> getLayerSlice(Direction moveDirection, int layer) {
       }
       break;
   }
-  println(slice);
   return slice;
 }
 
@@ -139,7 +136,6 @@ void collapseGrid(Direction moveDirection) {
     ArrayList<Integer> newLayerSlice = collapseLayers(layerSlice);
     writeLayerSlice(moveDirection, layer, newLayerSlice);
   }
-  println("");
 }
 
 ArrayList<Integer> getFreeCellIndices(Direction wallSide, int layer) {
