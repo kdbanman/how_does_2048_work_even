@@ -48,6 +48,24 @@ void keyPressed() {
   if (gridCollapsed) {
     tilePlaced = grid.spawnRandomTile(getOppositeDirection(moveDirection));
   }
+  
+  if (gameLost()) {
+    // TODO render lose condition.
+    println("Lost");
+  }
+}
+
+boolean gameLost() {
+  Direction[] allDirections = new Direction[]{Direction.LEFT, Direction.RIGHT, Direction.DOWN, Direction.UP};
+  for (Direction direction : allDirections) {
+    Grid throwawayGrid = grid.copyGrid();
+    boolean gridCollapsed = throwawayGrid.collapseGrid(direction);
+    
+    if (gridCollapsed) {
+      return false;
+    }
+  }
+  return true;
 }
 
 int effectiveSize() {

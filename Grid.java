@@ -14,8 +14,21 @@ public class Grid {
     }
   }
   
+  public Grid(Grid toCopy) {
+    this.gridSize = toCopy.getGridSize();
+    this.grid = toCopy.copyGridInternal();
+  }
+  
+  public int getGridSize() {
+    return gridSize;
+  }
+  
   public int getGridValue(int row, int col) {
     return grid[row][col];
+  }
+  
+  public Grid copyGrid() {
+    return new Grid(this);
   }
   
   public void seedGrid() {
@@ -28,19 +41,6 @@ public class Grid {
     } else {
       grid[midpoint][midpoint] = 2;
     }
-  }
-  
-  public int[][] copyGrid() {
-    int[][] newGrid = new int[gridSize][];
-    for (int row = 0; row < gridSize; row++) {
-      newGrid[row] = new int[gridSize];
-      
-      for (int col = 0; col < gridSize; col++) {
-        newGrid[row][col] = grid[row][col];
-      }
-    }
-    
-    return newGrid;
   }
   
   public boolean gridEquals(int[][] otherGrid) {
@@ -58,7 +58,7 @@ public class Grid {
     /*
     Returns false if the grid was already fully collapsed.
     */
-    int[][] previousGrid = copyGrid();
+    int[][] previousGrid = copyGridInternal();
     for (int layer = 0; layer < gridSize; layer++) {
       ArrayList<Integer> layerSlice = getLayerSlice(moveDirection, layer);
       ArrayList<Integer> newLayerSlice = collapseLayers(layerSlice);
@@ -85,6 +85,19 @@ public class Grid {
     }
     
     return tilePlaced;
+  }
+  
+  private int[][] copyGridInternal() {
+    int[][] newGrid = new int[gridSize][];
+    for (int row = 0; row < gridSize; row++) {
+      newGrid[row] = new int[gridSize];
+      
+      for (int col = 0; col < gridSize; col++) {
+        newGrid[row][col] = grid[row][col];
+      }
+    }
+    
+    return newGrid;
   }
   
   private ArrayList<Integer> collapseLayers(ArrayList<Integer> layerSlice) {
