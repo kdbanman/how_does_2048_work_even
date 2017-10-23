@@ -6,23 +6,26 @@ I built it in [Processing](https://processing.org/) because it's easy-peasy to d
 
 ------------------------
 
-If for some silly reason you want to play it, here download the executable for your platform:
-- [osx](assets/executables/application.macosx.zip)
-- [linux32](assets/executables/application.linux32.zip)
-- [linux64](assets/executables/application.linux64.zip)
-- [windows32](assets/executables/application.windows32.zip)
-- [windows64](assets/executables/application.windows64.zip)
-
-You'll need Java 7.
-
-------------------------
-
 It looks like this:
 
-![starting state](assets/start_state.png) ![played state](assets/played_state.png)
+<img src="/kdbanman/how_does_2048_work_even/raw/master/assets/start_state.png" alt="start state" style="max-width:425px;">
+
+<img src="/kdbanman/how_does_2048_work_even/raw/master/assets/played_state.png" alt="played state" style="max-width:425px;">
 
 And futzing with some magic numbers in the code can make it playable on a much bigger grid:
 
 ![big grid](assets/bigger.gif)
 
 (^That's not in the downloadable executables, sorry. Create a GitHub Issue if you want that.)
+
+------------------------
+
+If for some silly reason you want to play it, here download the executable for your platform:
+- [osx](https://github.com/kdbanman/how_does_2048_work_even/raw/master/assets/executables/application.macosx.zip)
+- [linux32](https://github.com/kdbanman/how_does_2048_work_even/raw/master/assets/executables/application.linux32.zip)
+- [linux64](https://github.com/kdbanman/how_does_2048_work_even/raw/master/assets/executables/application.linux64.zip)
+- [windows32](https://github.com/kdbanman/how_does_2048_work_even/raw/master/assets/executables/application.windows32.zip)
+- [windows64](https://github.com/kdbanman/how_does_2048_work_even/raw/master/assets/executables/application.windows64.zip)
+
+You'll need Java 7.
+
