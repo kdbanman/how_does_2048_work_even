@@ -6,6 +6,9 @@ int cellSize;
 int cellPadding;
 
 boolean gameLost;
+Coordinate mostRecentTileLocation;
+ // TODO: this should be a time based value to tolerate framerate changes
+int mostRecentTileDropFrame;
 
 void setup() {
   gridSize = 4;
@@ -18,7 +21,7 @@ void setup() {
   gameLost = false;
   
   size(gridDrawSize(), gridDrawSize());
-  frameRate(24);
+  frameRate(60);
 }
 
 void draw() {
@@ -33,6 +36,11 @@ void draw() {
       int cellY = effectiveSize() * row + cellPadding;
       // x y w h r
       rect(cellX, cellY, cellSize, cellSize, cellSize / 10);
+      
+      if (mostRecentTileLocation != null && mostRecentTileLocation.row == row && mostRecentTileLocation.col == col) {
+        fill(255, 255, 255, max(255 - 5 * pow(framesSinceMostRecentCellDrop(), 2), 0));
+        rect(cellX, cellY, cellSize, cellSize, cellSize / 10);
+      }
       
       if (grid.getGridValue(row, col) != 0) {
         String boxText = gameLost ? ":(" : "" + grid.getGridValue(row, col);
@@ -49,9 +57,9 @@ void keyPressed() {
   Direction moveDirection = getMoveDirection();
   boolean gridCollapsed = grid.collapseGrid(moveDirection);
   
-  boolean tilePlaced = false;
   if (gridCollapsed) {
-    tilePlaced = grid.spawnRandomTile(getOppositeDirection(moveDirection));
+    mostRecentTileLocation = grid.spawnRandomTile(getOppositeDirection(moveDirection));
+    mostRecentTileDropFrame = frameCount;
   }
   
   gameLost = gameLost();
@@ -181,5 +189,9 @@ Direction getOppositeDirection(Direction inDirection) {
       break;
   }
   return opposite;
+}
+
+int framesSinceMostRecentCellDrop() {
+  return frameCount - mostRecentTileDropFrame;
 }
 

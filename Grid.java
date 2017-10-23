@@ -27,6 +27,10 @@ public class Grid {
     return grid[row][col];
   }
   
+  public int getGridValue(Coordinate coord) {
+    return grid[coord.row][coord.col];
+  }
+  
   public Grid copyGrid() {
     return new Grid(this);
   }
@@ -68,23 +72,25 @@ public class Grid {
     return !gridEquals(previousGrid);
   }
   
-  public boolean spawnRandomTile(Direction wallSide) {
+  public Coordinate spawnRandomTile(Direction wallSide) {
     /*
-    March in from wallSide, if open tile(s) at layer, randomly choose from them in that layer.
-    If no more layers, return false.
+    Places a tile (value 2) in a random location as close to the specified wall as possible.
+    Returns the Coordinate of the tile, or null if it couldn't be placed.
     */
-    boolean tilePlaced = false;
+    
+    // March in from wallSide, if open tile(s) at layer, randomly choose from them in that layer.
+    // If no more layers, return null.
+    Coordinate tileLocation = null;
     for (int layer = 0; layer < gridSize; layer++) {
       ArrayList<Integer> freeCellIndices = getFreeCellIndices(wallSide, layer);
       if (freeCellIndices.size() != 0) {
         int indexToFill = freeCellIndices.get(ThreadLocalRandom.current().nextInt(0, freeCellIndices.size()));
-        spawnTile(wallSide, layer, indexToFill);
-        tilePlaced = true;
+        tileLocation = spawnTile(wallSide, layer, indexToFill);
         break;
       }
     }
     
-    return tilePlaced;
+    return tileLocation;
   }
   
   private int[][] copyGridInternal() {
@@ -233,7 +239,7 @@ public class Grid {
     return freeCellIndices;
   } 
   
-  private void spawnTile(Direction wallSide, int layer, int indexToFill) {
+  private Coordinate spawnTile(Direction wallSide, int layer, int indexToFill) {
     int row = -1;
     int col = -1;
     
@@ -258,6 +264,8 @@ public class Grid {
         col = indexToFill;
         break;
     }
+    
     grid[row][col] = 2;
+    return new Coordinate(row, col);
   }
 }
