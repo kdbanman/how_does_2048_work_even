@@ -5,6 +5,8 @@ Grid grid;
 int cellSize;
 int cellPadding;
 
+boolean gameLost;
+
 void setup() {
   gridSize = 4;
   grid = new Grid(gridSize);
@@ -13,14 +15,14 @@ void setup() {
   cellSize = 100;
   cellPadding = 5;
   
+  gameLost = false;
+  
   size(gridDrawSize(), gridDrawSize());
   frameRate(24);
 }
 
 void draw() {
   clearScreen();
-  
-  boolean gameLost = gameLost();
   
   for (int row = 0; row < gridSize; row++) {
     for (int col = 0; col < gridSize; col++) {
@@ -51,6 +53,8 @@ void keyPressed() {
   if (gridCollapsed) {
     tilePlaced = grid.spawnRandomTile(getOppositeDirection(moveDirection));
   }
+  
+  gameLost = gameLost();
 }
 
 boolean gameLost() {
