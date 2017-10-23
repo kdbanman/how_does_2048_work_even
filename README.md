@@ -8,9 +8,9 @@ I built it in [Processing](https://processing.org/) because it's easy-peasy to d
 
 It looks like this:
 
-<img src="/kdbanman/how_does_2048_work_even/raw/master/assets/start_state.png" alt="start state" style="max-width:425px;">
+<img src="assets/start_state.png" alt="start state" style="max-width:425px;"/>
 
-<img src="/kdbanman/how_does_2048_work_even/raw/master/assets/played_state.png" alt="played state" style="max-width:425px;">
+<img src="assets/played_state.png" alt="played state" style="max-width:425px;"/>
 
 And futzing with some magic numbers in the code can make it playable on a much bigger grid:
 
