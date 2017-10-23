@@ -25,6 +25,30 @@ void seedGrid() {
   }
 }
 
+int[][] copyGrid() {
+  int[][] newGrid = new int[gridSize][];
+  for (int row = 0; row < gridSize; row++) {
+    newGrid[row] = new int[gridSize];
+    
+    for (int col = 0; col < gridSize; col++) {
+      newGrid[row][col] = grid[row][col];
+    }
+  }
+  
+  return newGrid;
+}
+
+boolean gridEquals(int[][] otherGrid) {
+  for (int row = 0; row < gridSize; row++) {
+    for (int col = 0; col < gridSize; col++) {
+      if (otherGrid[row][col] != grid[row][col]) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
 ArrayList<Integer> collapseLayers(ArrayList<Integer> layerSlice) {
   /*
   Collapses any layer slice from left to right (Direction.RIGHT):
@@ -130,12 +154,18 @@ void writeLayerSlice(Direction moveDirection, int layer, ArrayList<Integer> slic
   }
 }
 
-void collapseGrid(Direction moveDirection) {
+boolean collapseGrid(Direction moveDirection) {
+  /*
+  Returns false if the grid was already fully collapsed.
+  */
+  int[][] previousGrid = copyGrid();
   for (int layer = 0; layer < gridSize; layer++) {
     ArrayList<Integer> layerSlice = getLayerSlice(moveDirection, layer);
     ArrayList<Integer> newLayerSlice = collapseLayers(layerSlice);
     writeLayerSlice(moveDirection, layer, newLayerSlice);
   }
+  
+  return !gridEquals(previousGrid);
 }
 
 ArrayList<Integer> getFreeCellIndices(Direction wallSide, int layer) {
@@ -358,13 +388,11 @@ Direction getOppositeDirection(Direction inDirection) {
 
 void keyPressed() {
   Direction moveDirection = getMoveDirection();
-  collapseGrid(moveDirection);
+  boolean gridCollapsed = collapseGrid(moveDirection);
   
-  boolean tilePlaced = spawnRandomTile(getOppositeDirection(moveDirection));
-  
-  if (!tilePlaced){
-    // TODO This isn't actually the lose condition.
-    println("Lose.");
+  boolean tilePlaced = false;
+  if (gridCollapsed) {
+    tilePlaced = spawnRandomTile(getOppositeDirection(moveDirection));
   }
 }
 
